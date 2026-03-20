@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOD010837 Financial Environment & Analysis - Revision Hub</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f5f5dc 0%, #e8dcc4 100%);
+            line-height: 1.6;
+            color: #1a3a52;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header {
+            background: linear-gradient(135deg, #1a3a52 0%, #2d5a7b 100%);
+            color: #f5f5dc;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        header h1 { font-size: 2.2em; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        header p { font-size: 1.1em; opacity: 0.9; }
+        nav {
+            position: sticky;
+            top: 0;
+            background: #2d5a7b;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            z-index: 100;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        nav a {
+            color: #f5f5dc;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            background: rgba(255,255,255,0.1);
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+        nav a:hover { background: #1a3a52; transform: translateY(-2px); }
+        .topic-section {
+            background: white;
+            margin: 30px 0;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .topic-header {
+            border-left: 5px solid #2d5a7b;
+            padding-left: 20px;
+            margin-bottom: 25px;
+        }
+        .topic-header h2 { color: #1a3a52; font-size: 2em; margin-bottom: 10px; }
+        .cheat-sheet {
+            background: linear-gradient(135deg, #2d5a7b 0%, #1a3a52 100%);
+            color: #f5f5dc;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .cheat-sheet h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid rgba(245,245,220,0.3);
+            padding-bottom: 10px;
+        }
+        .cheat-sheet ul { list-style: none; padding-left: 0; }
+        .cheat-sheet li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        .cheat-sheet li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #20b2aa;
+            font-weight: bold;
+        }
+        .key-terms { display: flex; flex-wrap: wrap; gap: 15px; margin: 20px 0; }
+        .term-card {
+            background: #f0f8ff;
+            border-left: 4px solid #20b2aa;
+            padding: 15px;
+            border-radius: 5px;
+            flex: 1 1 300px;
+        }
+        .term-card strong { color: #1a3a52; display: block; margin-bottom: 5px; }
+        .cheat-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .cheat-card {
+            background: #fff;
+            border: 2px solid #20b2aa;
+            border-radius: 8px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .cheat-card:hover { transform: translateY(-5px); box-shadow: 0 6px 12px rgba(32,178,170,0.3); }
+        .cheat-card h4 { color: #2d5a7b; margin-bottom: 10px; font-size: 1.1em; }
+        .cheat-card-content {
+            display: none;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #e0e0e0;
+            color: #555;
+        }
+        .cheat-card.active .cheat-card-content { display: block; }
+        .diagram-section {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .quiz-section {
+            background: linear-gradient(135deg, #f5f5dc 0%, #e8dcc4 100%);
+            padding: 25px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+        .quiz-section h3 { color: #1a3a52; margin-bottom: 20px; text-align: center; }
+        .quiz-controls { text-align: center; margin-bottom: 20px; }
+        button {
+            background: linear-gradient(135deg, #2d5a7b 0%, #1a3a52 100%);
+            color: #f5f5dc;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        button:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
+        .question-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .question-text {
+            font-size: 1.1em;
+            color: #1a3a52;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        .options { display: flex; flex-direction: column; gap: 10px; }
+        .option {
+            background: #f0f8ff;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        .option:hover { background: #e6f3ff; border-color: #20b2aa; }
+        .option.selected { background: #20b2aa; color: white; border-color: #1a3a52; }
+        .option.correct { background: #4CAF50; color: white; }
+        .option.incorrect { background: #f44336; color: white; }
+        .explanation {
+            background: #f0f8ff;
+            padding: 15px;
+            border-left: 4px solid #20b2aa;
+            margin-top: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        .explanation.show { display: block; }
+        .score-display {
+            background: #1a3a52;
+            color: #f5f5dc;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.2em;
+        }
+        .progress-bar {
+            background: #e0e0e0;
+            height: 25px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        .progress-fill {
+            background: linear-gradient(90deg, #20b2aa 0%, #2d5a7b 100%);
+            height: 100%;
+            transition: width 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.5em; }
+            nav { flex-direction: column; }
+            nav a { width: 100%; text-align: center; }
+            .topic-section { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>📊 MOD010837: Financial Environment & Analysis</h1>
+        <p>ARU College Foundation Level - Interactive Revision Hub</p>
+    </header>
+
+```
+<nav id="navbar">
+    <a href="#topic1">L1: Data Sources</a>
+    <a href="#topic2">L2: FinTech</a>
+    <a href="#topic3">L3: ESG</a>
+    <a href="#topic4">L4: Statements</a>
+    <a href="#topic6">L6: Ratios</a>
+    <a href="#topic7">L7: Markets</a>
+    <a href="#topic8">L8: Budgeting</a>
+    <a href="#topic9">L9: Credibility</a>
+    <a href="#fulltest">Full Mock Test</a>
+</nav>
+
+<div class="container">
+    <p style="background: #fff; padding: 20px; border-radius: 8px; margin-bottom: 20px; text-align: center;">
+        <strong>📚 Comprehensive Revision Tool</strong><br>
+        Each topic has randomized quizzes - get fresh questions every attempt!<br>
+        Full mock test covers all topics with topic-by-topic breakdown.
+    </p>
+```
